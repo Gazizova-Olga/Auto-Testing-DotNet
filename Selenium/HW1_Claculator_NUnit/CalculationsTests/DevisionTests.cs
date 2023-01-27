@@ -10,23 +10,25 @@ namespace CalculationsTests
     {
         [Test, Category("Devide/Multiply")]
         [TestCaseSource(nameof(DevisionTestData_Success))]
-        public int Devision_Test(int first, int second)
+        public void Division_Test(int first, int second)
         {
-            return Calculations.Division(first, second);
+            int expected = first / second;
+            int actual = Calculations.Division(first, second);
+            Assert.AreEqual(expected, actual);
         }
 
         public static IEnumerable<TestCaseData> DevisionTestData_Success()
         {
-            yield return new TestCaseData(1, -1).Returns(-1);
-            yield return new TestCaseData(-1, 1).Returns(-1);
+            yield return new TestCaseData(1, -1);
+            yield return new TestCaseData(-1, 1);
 
-            yield return new TestCaseData(0, 1).Returns(0);
+            yield return new TestCaseData(0, 1);
 
-            yield return new TestCaseData(0, -2147483647).Returns(0);
-            yield return new TestCaseData(0, 2147483647).Returns(0);
+            yield return new TestCaseData(0, -2147483647);
+            yield return new TestCaseData(0, 2147483647);
         }
 
-        [Test, Category("Falling")]
+        [Test, Category("Devide / Multiply")]
         [TestCaseSource(nameof(DivisionTestData_Exception))]
         public void DivisionTest_Exception(int first, int second)
         {
