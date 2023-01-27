@@ -7,7 +7,7 @@ namespace CalculationsTests
     [TestFixture]
     public class AdditionTests
     {
-        [Test, Category("Rising")]
+        [Test, Category("Add/Substruct")]
         [TestCaseSource(nameof(AdditionTestData_Success))]
         public int Addition_Test(int first, int second)
         {

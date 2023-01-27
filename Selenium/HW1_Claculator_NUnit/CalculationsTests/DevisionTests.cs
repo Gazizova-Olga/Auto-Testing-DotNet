@@ -8,7 +8,7 @@ namespace CalculationsTests
     [TestFixture]
     public class DevisionTests
     {
-        [Test, Category("Falling")]
+        [Test, Category("Devide/Multiply")]
         [TestCaseSource(nameof(DevisionTestData_Success))]
         public int Devision_Test(int first, int second)
         {

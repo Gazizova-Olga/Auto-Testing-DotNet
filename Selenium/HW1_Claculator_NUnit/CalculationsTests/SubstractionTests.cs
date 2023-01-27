@@ -7,7 +7,7 @@ namespace CalculationsTests
     [TestFixture]
     public class SubstractionTests
     {
-        [Test, Category("Falling")]
+        [Test, Category("Add/Substruct")]
         [TestCaseSource(nameof(SubstactionTestData_Success))]
         public int Substraction_Test(int first, int second)
         {
