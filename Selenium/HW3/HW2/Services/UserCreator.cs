@@ -4,8 +4,8 @@ namespace BusinessLogic.Services
 {
     public static class UserCreator
     {
-        private const string login = "Roman";
-        private const string password = "Jdi1234";
+        private static string login => SettingsConfig.GetSettungsConfig()["login"];
+        private static string password = SettingsConfig.GetSettungsConfig()["password"];
 
         public static User GetUser()
         {

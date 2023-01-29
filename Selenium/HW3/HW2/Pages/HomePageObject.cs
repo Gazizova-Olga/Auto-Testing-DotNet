@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Models;
 using BusinessLogic.Pages;
 using BusinessLogic.Pages.Components;
+using BusinessLogic.Services;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
@@ -20,7 +21,7 @@ namespace HW2
         public List<IWebElement> IFrameCollection => Wait.Until(d => d.FindElements(By.TagName("iframe"))).ToList();
         public string IFrameButtonId => "frame-button";
 
-        private const string url = "https://jdi-testing.github.io/jdi-light/index.html";
+        private string url => SettingsConfig.GetSettungsConfig()["homePageUrl"];
 
         public HomePageObject(IWebDriver browser)
         {

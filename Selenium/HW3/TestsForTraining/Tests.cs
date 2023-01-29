@@ -8,6 +8,7 @@ using HW2.Drivers;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 
 namespace Tests
 {
@@ -15,10 +16,17 @@ namespace Tests
     public class Tests
     {
         private IWebDriver driver;
+        private IConfiguration config;
+
+
         [SetUp]
         public void Init()
         {
-            driver = DriverInstance.GetInstance();
+            config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+            string browser = config["browser"];
+            driver = DriverInstance.GetInstance(browser);
         }
 
         [TearDown]
