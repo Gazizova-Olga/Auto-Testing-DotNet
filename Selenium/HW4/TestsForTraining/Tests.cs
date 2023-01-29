@@ -9,10 +9,12 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using NUnit.Allure.Core;
 
 namespace Tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class Tests
     {
         private IWebDriver driver;
