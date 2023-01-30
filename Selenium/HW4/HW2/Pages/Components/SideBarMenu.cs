@@ -7,8 +7,10 @@ using System.Collections.Generic;
 
 namespace BusinessLogic.Pages.Components
 {
-    public class SideBarMenu : AbstractPageObject
+    public class SideBarMenu 
     {
+        public WebDriverWait Wait { get; set; }
+        private readonly IWebDriver driver;
         public ICollection<IWebElement> SidebarMenuItems => Wait.Until(d => d.FindElements(By.XPath(".//ul[@class='sidebar-menu left']/li")));
         public IWebElement ServiceSidebarMenuItem => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//ul/li/a/span[text()='Service']")));
         public IWebElement ServiceMenuDifferentElementsItem => Wait.Until(ExpectedConditions.ElementExists(By.XPath("//ul/li/a/span[text()='Different elements']")));

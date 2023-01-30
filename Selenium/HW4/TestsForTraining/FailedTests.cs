@@ -16,7 +16,7 @@ namespace Tests
 {
     [TestFixture]
     [AllureNUnit]
-    public class Tests
+    public class FailedTests
     {
         private IConfiguration config;
         private DirectoryInfo path;
@@ -63,11 +63,11 @@ namespace Tests
         public void EX1()
         {
             //expected results
-            const string expectedTitle = "Home Page";
+            const string expectedTitle = "Home Pages!!!";//wrong string
             const string expectedUserName = "ROMAN IOVLEV";
             const int expectedCountHeaderMenuItems = 4;
             List<string> expectedHeaderItems = new List<string> { "HOME", "CONTACT FORM", "SERVICE", "METALS & COLORS" };
-            const int expectedIconsCount = 4;
+            const int expectedIconsCount = 2;// wrong number
             const int expectedMessagesCount = 4;
             List<string> expectedListOfBenefitMessages = new List<string> {
                 "To include good practices\r\nand ideas from successful\r\nEPAM project",
@@ -121,50 +121,6 @@ namespace Tests
                 messagesList.Should().BeEquivalentTo(expectedListOfBenefitMessages);
                 isFrameWithButton.Should().Be(true);
                 sidebarMenuItems.Should().BeEquivalentTo(expectedSidebarMenuItems);
-            }
-        }
-
-        [Test]
-        [AllureDescription("Check of login process and work of different element page: wind and wated check boxes," +
-            " selen radio button, log field")]
-        public void EX2()
-        {
-            //expected results
-            const string expectedTitle = "Home Page";
-            const string expectedUserName = "ROMAN IOVLEV";
-            const string expectedWaterLog = "Water: condition changed to true";
-            const string expectedWindLog = "Wind: condition changed to true";
-            const string expectedSelenLog = "metal: value changed to Selen";
-
-            //1 step. Open test site by URL
-            steps.OpenHomePage();
-
-            //2 step. Assert Browser title
-            string title = steps.GetPageTitle();
-
-            //3 step. Perform login
-            steps.Login();
-
-            //4 step. Assert Username is loggined
-            string userName = steps.GetLoggedUserName();
-
-            //5 step.Open through the header menu Service -> Different Elements Page
-            steps.GoToDifferentElementsPage();
-
-            //6 step. Select checkboxes
-            string waterLog = steps.GetLastLogMessageForSelectedWaterCheckbox();
-
-            string windLog = steps.GetLastLogMessageForSelectedWindCheckBox();
-
-            string selenLog = steps.GetLastLogMessageForSelectedSelenRadioButton();
-
-            using (new AssertionScope())
-            {
-                title.Should().Be(expectedTitle);
-                userName.Should().Be(expectedUserName);
-                waterLog.Should().Contain(expectedWaterLog);
-                windLog.Should().Contain(expectedWindLog);
-                selenLog.Should().Contain(expectedSelenLog);
             }
         }
     }

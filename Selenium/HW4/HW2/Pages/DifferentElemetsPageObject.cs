@@ -7,10 +7,12 @@ using System;
 
 namespace BusinessLogic.Pages
 {
-    public class DifferentElemetsPageObject : AbstractPageObject
+    public class DifferentElemetsPageObject
     {
         private HeaderMenu header;
         private SideBarMenu sideBar;
+        private readonly IWebDriver driver;
+        public WebDriverWait Wait { get; set; }
         public IWebElement WaterCheckBox => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//label[contains(.,'Water')]")));
         public IWebElement WindCheckBox => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//label[contains(.,'Wind')]")));
         public IWebElement SelenRadioButton => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//label[contains(.,'Selen')]")));

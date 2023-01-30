@@ -11,10 +11,12 @@ using System.Linq;
 
 namespace HW2
 {
-    public class HomePageObject : AbstractPageObject
+    public class HomePageObject
     {
         private HeaderMenu header;
         private SideBarMenu sideBar;
+        private readonly IWebDriver driver;
+        public WebDriverWait Wait { get; set; }
         public ICollection<IWebElement> BenefitItems => Wait.Until(d => d.FindElements(By.XPath(".//div[contains(@class,'benefits')]/div")));
         public string BenefitIcon => "div[@class='benefit']/div[@class='benefit-icon']";
         public string BenefitText => "div[@class='benefit']/span[@class='benefit-txt']";

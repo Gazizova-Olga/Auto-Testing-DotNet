@@ -8,8 +8,10 @@ using System.Collections.Generic;
 
 namespace BusinessLogic.Pages.Components
 {
-    public class HeaderMenu : AbstractPageObject
+    public class HeaderMenu 
     {
+        public WebDriverWait Wait { get; set; }
+        private readonly IWebDriver driver;
         public IWebElement DropDownCaretElement => Wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//header//li[contains(@class,'uui-profile-menu')]/a")));
         public IWebElement LoginInputField => Wait.Until(ExpectedConditions.ElementIsVisible(By.Id("name")));
         public IWebElement PasswordInputField => Wait.Until(ExpectedConditions.ElementIsVisible(By.Id("password")));
