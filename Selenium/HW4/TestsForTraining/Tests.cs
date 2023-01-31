@@ -11,7 +11,6 @@ using System;
 using NUnit.Framework.Interfaces;
 using NUnit.Allure.Attributes;
 using Allure.Commons;
-using OpenQA.Selenium.DevTools.V107.Browser;
 
 namespace Tests
 {
@@ -19,29 +18,20 @@ namespace Tests
     [AllureNUnit]
     public class Tests
     {
-        private IConfiguration config;
+        //private IConfiguration config;
         private Steps.Steps steps = new Steps.Steps();
 
         [SetUp]
         public void Init()
         {
-            string browser = null;
-            try
-            {
-                config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
+            //config = new ConfigurationBuilder()
+            //.AddJsonFile("appsettings.json")
+            //.Build();
 
-                browser = config["browser"];
-            }
-            catch (FileNotFoundException e)
-            {
+            //path = new DirectoryInfo(config["path"]);
+            //string browser = config["browser"];
 
-            }
-            finally
-            {
-                steps.InitBrowser(browser);
-            }
+            steps.InitBrowser(/*browser*/);
         }
 
         [TearDown]

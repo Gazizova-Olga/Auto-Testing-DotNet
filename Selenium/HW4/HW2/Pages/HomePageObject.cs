@@ -24,7 +24,7 @@ namespace HW2
         public List<IWebElement> IFrameCollection => Wait.Until(d => d.FindElements(By.TagName("iframe"))).ToList();
         public string IFrameButtonId => "frame-button";
 
-        private string url => SettingsConfig.GetSettungsConfig()["homePageUrl"] ?? "https://jdi-testing.github.io/jdi-light/index.html";
+        private string url => /*SettingsConfig.GetSettungsConfig()["homePageUrl"] ?? */"https://jdi-testing.github.io/jdi-light/index.html";
 
         public HomePageObject(IWebDriver browser)
         {
