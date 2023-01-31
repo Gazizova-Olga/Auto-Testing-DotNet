@@ -18,21 +18,20 @@ namespace Tests
     [AllureNUnit]
     public class FailedTests
     {
-        private IConfiguration config;
-        private DirectoryInfo path;
+        //private IConfiguration config;
         private Steps.Steps steps = new Steps.Steps();
 
         [SetUp]
         public void Init()
         {
-            config = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .Build();
+            //config = new ConfigurationBuilder()
+            //.AddJsonFile("appsettings.json")
+            //.Build();
 
-            path = new DirectoryInfo(config["path"]);
-            string browser = config["browser"];
+            //path = new DirectoryInfo(config["path"]);
+            //string browser = config["browser"];
 
-            steps.InitBrowser(browser);
+            steps.InitBrowser(/*browser*/);
         }
 
         [TearDown]
@@ -46,11 +45,6 @@ namespace Tests
         {
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                if (path.Exists == false)
-                {
-                    path.Create();
-                }
-
                 byte[] content = (steps.driver as ITakesScreenshot).GetScreenshot().AsByteArray;
                 DateTime time = DateTime.Now;
                 string dateToday = "_date_" + time.ToString("yyyy-MM-dd") + "_time_" + time.ToString("HH-mm-ss");
