@@ -19,7 +19,6 @@ namespace Tests
     public class Tests
     {
         private IConfiguration config;
-        private DirectoryInfo path;
         private Steps.Steps steps = new Steps.Steps();
 
         [SetUp]
@@ -29,7 +28,6 @@ namespace Tests
             .AddJsonFile("appsettings.json")
             .Build();
 
-            path = new DirectoryInfo(config["path"]);
             string browser = config["browser"];
 
             steps.InitBrowser(browser);
@@ -46,11 +44,6 @@ namespace Tests
         {
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                if (path.Exists == false)
-                {
-                    path.Create();
-                }
-
                 byte[] content = (steps.driver as ITakesScreenshot).GetScreenshot().AsByteArray;
                 DateTime time = DateTime.Now;
                 string dateToday = "_date_" + time.ToString("yyyy-MM-dd") + "_time_" + time.ToString("HH-mm-ss");

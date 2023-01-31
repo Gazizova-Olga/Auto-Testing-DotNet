@@ -8,6 +8,7 @@ using SeleniumExtras.PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Net.WebRequestMethods;
 
 namespace HW2
 {
@@ -23,7 +24,7 @@ namespace HW2
         public List<IWebElement> IFrameCollection => Wait.Until(d => d.FindElements(By.TagName("iframe"))).ToList();
         public string IFrameButtonId => "frame-button";
 
-        private string url => SettingsConfig.GetSettungsConfig()["homePageUrl"];
+        private string url => SettingsConfig.GetSettungsConfig()["homePageUrl"] ?? "https://jdi-testing.github.io/jdi-light/index.html";
 
         public HomePageObject(IWebDriver browser)
         {
