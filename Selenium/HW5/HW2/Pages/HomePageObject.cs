@@ -137,5 +137,15 @@ namespace HW2
         {
             return header.GetListOfHeaderMenuItems();
         }
+
+        public void OpenServiceDropDownMenuu()
+        {
+            header.OpenServiceDropDownMenu();
+        }
+
+        public void ClickOnDropDownMenuItem(string text)
+        {
+            header.ClickOnDropDownMenuItem(text);
+        }
     }
 }

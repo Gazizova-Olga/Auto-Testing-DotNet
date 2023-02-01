@@ -8,6 +8,8 @@ using BusinessLogic.Services;
 using HW2;
 using BusinessLogic.Pages;
 using NUnit.Framework;
+using TechTalk.SpecFlow.Assist;
+using SpecFlow.Assist;
 
 namespace SpecFlowTests.StepDefinitions
 {
@@ -32,11 +34,12 @@ namespace SpecFlowTests.StepDefinitions
         [After]
         public void CleanUp()
         {
+            _scenarioContext.Clear();
             DriverInstance.CloseBrowser();
         }
 
-        [Given(@"The browser navigates to '(.*)'")]
-        public void BrowserNavidatesTo(string url)
+        [Given(@"I open JDI GitHub site")]
+        public void IOpenJDIGitHubSite()
         {
             HomePageObject homePage = new HomePageObject(driver);
             homePage.OpenPage();
@@ -55,86 +58,168 @@ namespace SpecFlowTests.StepDefinitions
             _scenarioContext["title"] = homePage.GetPageTitle();
         }
 
-        //public void OpenHomePage()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    homePage.OpenPage();
-        //}
+        [When(@"I login into site as user '([^']*)'")]
+        public void WhenILoginIntoSiteAsUser(string p0)
+        {
+            HomePageObject homePage = new HomePageObject(driver);
+            User user = UserCreator.GetUser();
+            homePage.Login(user);
+        }
 
-        //public void Login()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    User user = UserCreator.GetUser();
-        //    homePage.Login(user);
-        //}
 
-        //public string GetPageTitle()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    return homePage.GetPageTitle();
-        //}
+        [Then(@"The logged user name shoul be '([^']*)'")]
+        public void TheLoggedUserNameShoulBe(string name)
+        {
+            HomePageObject homePage = new HomePageObject(driver);
+            Assert.AreEqual(name, homePage.GetLoggedUserName());
+        }
 
-        //public string GetLoggedUserName()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    return homePage.GetLoggedUserName();
-        //}
+        [Given(@"I login as user '(.*)'")]
+        public void ILoginAsUser(string p0)
+        {
+            HomePageObject homePage = new HomePageObject(driver);
+            User user = UserCreator.GetUser();
+            homePage.Login(user);
+        }
 
-        //public List<string> GetListOfHeaderMenuItems()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    return homePage.GetListOfHeaderMenuItems();
-        //}
+        [Given(@"I click on '(.*)' button in Header")]
+        [When(@"I click on '(.*)' button in Header")]
+        public void IClickOnButtonInHeader(string button)
+        {
+            HomePageObject homePage = new HomePageObject(driver);
+            homePage.OpenServiceDropDownMenuu();
+        }
 
-        //public int GetBenefitIconsCount()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    return homePage.GetBenefitIconsCount();
-        //}
+        [Given(@"I click on '(.*)' button in Service dropdown")]
+        [When(@"I click on '(.*)' button in Service dropdown")]
+        public void IClickOnButtonInServiceDropdown(string p0)
+        {
+            HomePageObject homePage = new HomePageObject(driver);
+            homePage.ClickOnDropDownMenuItem(p0);
+        }
 
-        //public List<string> GetListOfBenefitMessages()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    return homePage.GetListOfBenefitMessages();
-        //}
+        [When(@"I select (.*) checkbox")]
+        public void ISelectElementCheckbox(string element)
+        {
+            DifferentElemetsPageObject elemetsPageObject = new DifferentElemetsPageObject(driver);
+            _scenarioContext[element] = elemetsPageObject.SelectElementCheckBox(element);
+        }
 
-        //public bool IsIframeWithFrameButton()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    return homePage.IsIframeWithFrameButton();
-        //}
+        [Then(@"The last log line should contain (.*)")]
+        public void TheLastLogLineShouldContainMessage(string message)
+        {
+            DifferentElemetsPageObject elemetsPageObject = new DifferentElemetsPageObject(driver);
+            string actual = elemetsPageObject.CheckNumberLogLine();
+            Assert.That(actual, Does.Contain(message));
+        }
 
-        //public List<string> GetListOfSidebarMenuItems()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    return homePage.GetListOfSidebarMenuItems();
-        //}
+        [Then(@"The selected state of (.*) checkbox should be (.*)")]
+        public void ThenTheSelectedStateOfWaterCheckboxShouldBe(string element, string state)
+        {
+            Assert.AreEqual(_scenarioContext[element], state);
+        }
 
-        //public void GoToDifferentElementsPage()
-        //{
-        //    HomePageObject homePage = new HomePageObject(driver);
-        //    homePage.GoToDifferentElementsPage();
-        //}
+        [When(@"I select '(.*)' checkbox for '(.*)'")]
+        public void ISelectCheckboxFor(string vip, string userName)
+        {
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            userTable.SelectUserCheckBoxName(vip, userName);
+        }
 
-        //public string GetLastLogMessageForSelectedWaterCheckbox()
-        //{
-        //    DifferentElemetsPageObject elementspage = new DifferentElemetsPageObject(driver);
-        //    elementspage.SelectWaterCheckbox();
-        //    return elementspage.CheckLastLog();
-        //}
+        [Then(@"(.*) log row has (.*) text in log section")]
+        public void LogRowHasTextInLogSection(int number, string message)
+        {
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            string actual = userTable.CheckNumberLogLine(number);
+            Assert.That(actual, Does.Contain(message));
+        }
 
-        //public string GetLastLogMessageForSelectedWindCheckBox()
-        //{
-        //    DifferentElemetsPageObject elementspage = new DifferentElemetsPageObject(driver);
-        //    elementspage.SelectWindCheckBox();
-        //    return elementspage.CheckLastLog();
-        //}
+        [When(@"I select (.*) radiobutton")]
+        public void ISelectRadiobutton(string metal)
+        {
+            DifferentElemetsPageObject elementsPage = new DifferentElemetsPageObject(driver);
+            elementsPage.SelectMetalRadioButton();
+            _scenarioContext["metal"] = elementsPage.CheckNumberLogLine();
+        }
 
-        //public string GetLastLogMessageForSelectedSelenRadioButton()
-        //{
-        //    DifferentElemetsPageObject elementspage = new DifferentElemetsPageObject(driver);
-        //    elementspage.SelectSelenRadioButton();
-        //    return elementspage.CheckLastLog();
-        //}
+        [Given(@"I click on color field")]
+        public void IClickOnColorField()
+        {
+            DifferentElemetsPageObject elementsPage = new DifferentElemetsPageObject(driver);
+            elementsPage.OpenColorList();
+        }
+
+        [When(@"I select '(.*)' in the dropdown list")]
+        public void WhenISelectInTheDropdownList(string color)
+        {
+            DifferentElemetsPageObject elementsPage = new DifferentElemetsPageObject(driver);
+            elementsPage.ChooseColorFromDropDownList(color);
+        }
+
+        [Then(@"'(.*)' page should be opened")]
+        public void ThenPageShouldBeOpened(string pageTitle)
+        {
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            Assert.AreEqual(userTable.GetPageTitle(), pageTitle);
+        }
+
+        [Then(@"(.*) Number Type Dropdowns should be displayed on Users Table on User Table Page")]
+        public void ThenNumberTypeDropdownsShouldBeDisplayedOnUsersTableOnUserTablePage(int count)
+        {
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            int actual = userTable.GetCountOfDropDowns();
+            Assert.AreEqual(count, actual);
+        }
+
+        [Then(@"(.*) Usernames should be displayed on Users Table on User Table Page")]
+        public void ThenUsernamesShouldBeDisplayedOnUsersTableOnUserTablePage(int count)
+        {
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            int actual = userTable.GetCountOfRegisteredUsers();
+            Assert.AreEqual(count, actual);
+        }
+
+        [Then(@"(.*) Description texts under images should be displayed on Users Table on User Table Page")]
+        public void ThenDescriptionTextsUnderImagesShouldBeDisplayedOnUsersTableOnUserTablePage(int expected)
+        {
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            int actual = userTable.GetCountOfDescription();
+            Assert.AreEqual(actual, expected);
+        }
+
+        [Then(@"(.*) checkboxes should be displayed on Users Table on User Table Page")]
+        public void ThenCheckboxesShouldBeDisplayedOnUsersTableOnUserTablePage(int expected)
+        {
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            int actual = userTable.GetCountOfCheckBoxes();
+            Assert.AreEqual(actual, expected);
+        }
+
+        [Then(@"User table should contain following values:")]
+        public void ThenUserTableShouldContainFollowingValues(Table table)
+        {
+            var collection = new List<RegisteredUser>();
+            foreach (var row in table.Rows)
+            {
+                collection.Add(new RegisteredUser(int.Parse(row["Number"]), row["User"], @row["Description"]));
+            }
+
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            List<RegisteredUser> actual = userTable.CheckListOfRegisteredUsers();
+            Assert.IsTrue(collection.SequenceEqual(actual));
+        }
+
+        [Then(@"droplist should contain values in column Type for user Roman")]
+        public void ThenDroplistShouldContainValuesInColumnTypeForUserRoman(Table table)
+        {
+            var collection = new List<string>();
+            foreach (var row in table.Rows)
+            {
+                collection.Add(row.Values.First());
+            }
+            UserTablePageObject userTable = new UserTablePageObject(driver);
+            List<string> actual = userTable.GetDropDownListItemsForUser("Roman");
+            Assert.AreEqual(collection, actual);
+        }
     }
 }

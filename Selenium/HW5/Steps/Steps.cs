@@ -98,7 +98,7 @@ namespace Tests.Steps
         {
             DifferentElemetsPageObject elementspage = new DifferentElemetsPageObject(driver);
             elementspage.SelectWaterCheckbox();
-            return elementspage.CheckLastLog();
+            return elementspage.CheckNumberLogLine();
         }
 
         [AllureStep]
@@ -106,15 +106,15 @@ namespace Tests.Steps
         {
             DifferentElemetsPageObject elementspage = new DifferentElemetsPageObject(driver);
             elementspage.SelectWindCheckBox();
-            return elementspage.CheckLastLog();
+            return elementspage.CheckNumberLogLine();
         }
 
         [AllureStep]
         public string GetLastLogMessageForSelectedSelenRadioButton()
         {
             DifferentElemetsPageObject elementspage = new DifferentElemetsPageObject(driver);
-            elementspage.SelectSelenRadioButton();
-            return elementspage.CheckLastLog();
+            elementspage.SelectMetalRadioButton();
+            return elementspage.CheckNumberLogLine();
         }
     }
 }

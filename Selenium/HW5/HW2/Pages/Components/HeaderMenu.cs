@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Models;
+﻿using AngleSharp.Dom;
+using BusinessLogic.Models;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
@@ -18,6 +19,9 @@ namespace BusinessLogic.Pages.Components
         public IWebElement EnterButton => Wait.Until(ExpectedConditions.ElementIsVisible(By.Id("login-button")));
         public IWebElement UserNameLabel => Wait.Until(ExpectedConditions.ElementIsVisible(By.Id("user-name")));
         public ICollection<IWebElement> HeaderMenuItems => Wait.Until(d => d.FindElements(By.XPath(".//header//ul[contains(@class,'m-l8')]/li")));
+        public IWebElement ServiceMenuItem => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//header//ul[contains(@class,'m-l8')]/li[@class='dropdown']")));
+        public IWebElement DifferentElementsDropdownMenuItem => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//header//li[contains(@class,'dropdown')]//li/a[text()='Different elements']")));
+        private string dropDownMenuItem = ".//header//ul[contains(@class,'m-l8')]//ul[@class='dropdown-menu']/li/a[text()='{0}']";
 
         public HeaderMenu(IWebDriver browser)
         {
@@ -50,6 +54,22 @@ namespace BusinessLogic.Pages.Components
             }
 
             return headerItems;
+        }
+
+        public void GoToDifferentElementsPage()
+        {
+            ServiceMenuItem.Click();
+            DifferentElementsDropdownMenuItem.Click();
+        }
+
+        public void OpenServiceDropDownMenu()
+        {
+            ServiceMenuItem.Click();
+        }
+
+        public void ClickOnDropDownMenuItem(string text)
+        {
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(string.Format(dropDownMenuItem, text)))).Click();
         }
     }
 }

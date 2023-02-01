@@ -11,12 +11,16 @@ namespace BusinessLogic.Pages
     {
         private HeaderMenu header;
         private SideBarMenu sideBar;
+        private LogBar logBar;
         private readonly IWebDriver driver;
         public WebDriverWait Wait { get; set; }
         public IWebElement WaterCheckBox => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//label[contains(.,'Water')]")));
         public IWebElement WindCheckBox => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//label[contains(.,'Wind')]")));
+        private string chosenElement = ".//label[contains(.,'{0}')]";
         public IWebElement SelenRadioButton => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//label[contains(.,'Selen')]")));
-        public IWebElement LastLogLine => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//section[@class='uui-info-panel-horizontal']/div[contains(@class,'info-panel-body-log')]/div/ul/li[1]")));
+        public IWebElement ColorDropDown => Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//select[@class='uui-form-element']")));
+        private string colorFormat = ".//select[@class='uui-form-element']/option[text()='{0}']";
+
         public DifferentElemetsPageObject(IWebDriver browser)
         {
             driver = browser;
@@ -24,6 +28,7 @@ namespace BusinessLogic.Pages
             Wait = new WebDriverWait(browser, TimeSpan.FromSeconds(30));
             header = new HeaderMenu(browser);
             sideBar = new SideBarMenu(browser);
+            logBar = new LogBar(browser);
         }
 
         public void SelectWaterCheckbox()
@@ -36,14 +41,31 @@ namespace BusinessLogic.Pages
             WindCheckBox.Click();
         }
 
-        public void SelectSelenRadioButton()
+        public void SelectMetalRadioButton(string element = "Selen")
         {
-            SelenRadioButton.Click();
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(string.Format(chosenElement, element)))).Click();
         }
 
-        public string CheckLastLog()
+        public string CheckNumberLogLine(int number = 1)
         {
-            return LastLogLine.Text;
+            return logBar.CheckLastLog(number);
+        }
+
+        public bool SelectElementCheckBox(string element)
+        {
+            IWebElement checkBox = Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(string.Format(chosenElement, element))));
+            checkBox.Click();
+            return checkBox.Selected;
+        }
+
+        public void OpenColorList()
+        {
+            ColorDropDown.Click();
+        }
+
+        public void ChooseColorFromDropDownList(string color)
+        {
+            Wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(string.Format(colorFormat, color)))).Click();
         }
     }
 }
