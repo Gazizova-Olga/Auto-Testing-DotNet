@@ -129,6 +129,7 @@
     <Compile Include="Project\DataProviders\MetalAndColorsDataProvider.cs" />
     <Compile Include="Project\Entities\MetalAndColorsData.cs" />
     <Compile Include="Project\Entities\User.cs" />
+    <Compile Include="Project\Site\Custom\MenuItem.cs" />
     <Compile Include="Project\Site\Pages\HomePage.cs" />
     <Compile Include="Project\Site\Pages\MetalAndColorsPage.cs" />
     <Compile Include="Project\Site\Sections\Header.cs" />
